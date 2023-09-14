@@ -18,4 +18,4 @@ class NewPolicy(models.Model):
     IssueBureau = models.CharField(max_length=3, choices=Government_Bureau, default=MinisterOfLabor,)
     IssueDate= models.DateField(default=date.today)
     Text = models.TextField()
-    image = models.FileField(upload_to="NewPolicy/", blank=True, Null = True)
+    image = models.FileField(upload_to="NewPolicy/")
