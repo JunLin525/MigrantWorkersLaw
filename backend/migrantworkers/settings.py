@@ -37,11 +37,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-
+    #third-party
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_filters',
+    'dj_rest_auth',
+    'drf_spectacular',
     #APP
-    'CustomUser',
+    'CustomUser.apps.CustomuserConfig', #for custom user account
+    'NewPolicy.apps.NewpolicyConfig',
+    'CaseStudy.apps.CasestudyConfig',
+
 ]
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,6 +64,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'migrantworkers.urls'
+
+AUTH_USER_MODEL = "CustomUser.CustomUser"  
+
+
 
 TEMPLATES = [
     {
@@ -125,3 +139,31 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL="/media/"
+MEDIA_ROOT=BASE_DIR/"media"
+
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+    "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [  
+    "rest_framework.authentication.SessionAuthentication",
+    "rest_framework.authentication.TokenAuthentication",  
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ], ## Django_filter default backend
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+
+SPECTACULAR_SETTINGS={
+    'TITLE' : 'Migrants Workers Policy API',
+    'DESCRIPTION': ' This API Provide New Policy of Taiwan Migrants Worker Law',
+    'VERSION': '0.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
